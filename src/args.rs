@@ -1,6 +1,6 @@
 use clap::Parser;
 
-/// Simple program for the fucking silly epidemic reporting system.
+/// A simple program for the fucking silly epidemic reporting system.
 #[derive(Parser)]
 #[clap(author = "yurzhang", version, about, long_about = None)]
 pub struct Args {
