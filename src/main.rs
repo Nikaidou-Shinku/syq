@@ -1,10 +1,7 @@
-mod args;
-
 use std::process;
 use clap::Parser;
 
-use args::Args;
-use syq::command_report;
+use syq::{Args, command_report};
 
 fn main() {
   let args = Args::parse();
