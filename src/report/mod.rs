@@ -15,14 +15,29 @@ pub async fn report(cookie: &str, force: bool) -> Result<()> {
     return Ok(());
   }
 
-  let form = Form::new();
+  let form = Form::new("config.toml")?;
+  if form.other.is_none() && form.at_school.is_none() {
+    bail!("No form to report");
+  }
+  if form.other.is_some() && form.at_school.is_some() {
+    bail!("Can not report both at school and other");
+  }
 
-  let resp = client.post("https://yqtb.nwpu.edu.cn/wx/ry/ry_util.jsp")
-    .query(&params.1)
-    .form(&form)
-    .header("Cookie", format!("JSESSIONED={}", cookie))
-    .header("Referer", "https://yqtb.nwpu.edu.cn/wx/ry/jrsb_xs.jsp")
-    .send().await?;
+  let resp = if form.at_school.is_some() {
+    client.post("https://yqtb.nwpu.edu.cn/wx/ry/ry_util.jsp")
+      .query(&params.1)
+      .form(&form.at_school)
+      .header("Cookie", format!("JSESSIONED={}", cookie))
+      .header("Referer", "https://yqtb.nwpu.edu.cn/wx/ry/jrsb_xs.jsp")
+      .send().await?
+  } else {
+    client.post("https://yqtb.nwpu.edu.cn/wx/ry/ry_util.jsp")
+      .query(&params.1)
+      .form(&form.other)
+      .header("Cookie", format!("JSESSIONED={}", cookie))
+      .header("Referer", "https://yqtb.nwpu.edu.cn/wx/ry/jrsb_xs.jsp")
+      .send().await?
+  };
   let res = resp.text().await?.replace("－", "-"); // 😅
   let res: Value = serde_json::from_str(&res)?;
 
