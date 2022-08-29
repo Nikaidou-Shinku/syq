@@ -27,14 +27,14 @@ pub async fn report(cookie: &str, force: bool) -> Result<()> {
     client.post("https://yqtb.nwpu.edu.cn/wx/ry/ry_util.jsp")
       .query(&params.1)
       .form(&form.at_school)
-      .header("Cookie", format!("JSESSIONED={}", cookie))
+      .header("Cookie", format!("JSESSIONID={}", cookie))
       .header("Referer", "https://yqtb.nwpu.edu.cn/wx/ry/jrsb_xs.jsp")
       .send().await?
   } else {
     client.post("https://yqtb.nwpu.edu.cn/wx/ry/ry_util.jsp")
       .query(&params.1)
       .form(&form.other)
-      .header("Cookie", format!("JSESSIONED={}", cookie))
+      .header("Cookie", format!("JSESSIONID={}", cookie))
       .header("Referer", "https://yqtb.nwpu.edu.cn/wx/ry/jrsb_xs.jsp")
       .send().await?
   };
