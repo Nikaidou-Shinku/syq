@@ -30,7 +30,7 @@ pub async fn fetch_params(
         .ok_or(anyhow!("Failed to get the param `sign` from the report page!"))?
         .as_str().to_string();
       #[allow(non_snake_case)]
-      let timeStamp = res.get(1)
+      let timeStamp = res.get(2)
         .ok_or(anyhow!("Failed to get the param `timeStamp` from the report page!"))?
         .as_str().to_string();
 

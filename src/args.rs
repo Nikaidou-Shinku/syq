@@ -4,9 +4,13 @@ use clap::Parser;
 #[derive(Parser)]
 #[clap(author = "yurzhang", version, about, long_about = None)]
 pub struct Args {
-  /// The cookie `JSESSIONID`
+  /// Your username
   #[clap(short, long)]
-  pub cookie: String,
+  pub username: Option<String>,
+
+  /// Your password
+  #[clap(short, long)]
+  pub password: Option<String>,
 
   /// Keep reporting until successful
   #[clap(short, long)]
