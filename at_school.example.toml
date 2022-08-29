@@ -1,8 +1,12 @@
-[at_school]
+[basic]
+username = "1145141919" # 改成你的用户名，学号/手机号/邮箱/身份证号都可
+password = "998244353" # 改成你的密码
+
+[report.at_school]
 hsjc = 1
 xasymt = 1
 actionType = "addRbxx"
-userLoginId = "1145141919" # 学号
+userLoginId = "1145141919" # 改成你的学号
 szcsbm = 1
 bdzt = 1
 szcsmc = "在学校"
@@ -12,4 +16,4 @@ tbly = "sso"
 qtqksm = "无"
 ycqksm = ""
 userType = 2
-userName = "田所" # 姓名
+userName = "田所" # 改成你的姓名

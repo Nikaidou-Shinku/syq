@@ -4,10 +4,15 @@ use anyhow::{bail, Result};
 use serde_json::Value;
 use reqwest::Client;
 
-use crate::form::Form;
 use params::fetch_params;
 
-pub async fn report(cookie: &str, force: bool) -> Result<()> {
+use crate::form::Form;
+
+pub async fn report(
+  cookie: &str,
+  form: &Form,
+  force: bool,
+) -> Result<()> {
   let client = Client::new();
 
   let params = fetch_params(cookie, &client).await?;
@@ -15,7 +20,6 @@ pub async fn report(cookie: &str, force: bool) -> Result<()> {
     return Ok(());
   }
 
-  let form = Form::new("config.toml")?;
   if form.other.is_none() && form.at_school.is_none() {
     bail!("No form to report");
   }
