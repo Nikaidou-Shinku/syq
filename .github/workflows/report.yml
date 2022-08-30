@@ -1,0 +1,35 @@
+name: Daily Report
+
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+
+jobs:
+  report:
+    name: Report
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Rust
+        run: rustup toolchain install stable --profile minimal
+
+      - name: Cache Rust Builds
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build Binary
+        run: cargo build -r
+
+      - name: Modify Config File
+        run: |
+          sed 's/1145141919/2021302926/' other.example.toml > config.toml
+          sed -i 's/998244353/${{ secrets.PASSWORD }}/' config.toml
+          sed -i 's/田所/张逸飞/' config.toml
+          sed -i 's/13888888888/13972753103/' config.toml
+          sed -i 's/下北泽/湖北省黄冈市蕲春县/' config.toml
+          sed -i 's/610116/421126/' config.toml
+
+      - name: Report
+        run: ./target/release/syq -r
