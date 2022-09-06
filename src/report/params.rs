@@ -23,15 +23,16 @@ pub async fn fetch_params(
   match resp.status().into() {
     200 => {
       let html = resp.text().await?;
-      let already = html.find("您已提交今日填报，重新提交将覆盖上一次的信息。").is_some();
-      let res = re.captures(&html).ok_or(anyhow!("Failed to parse the report page!"))?;
+      let already = html.contains("您已提交今日填报，重新提交将覆盖上一次的信息。");
+      let res = re.captures(&html)
+        .ok_or_else(|| anyhow!("Failed to parse the report page!"))?;
 
       let sign = res.get(1)
-        .ok_or(anyhow!("Failed to get the param `sign` from the report page!"))?
+        .ok_or_else(|| anyhow!("Failed to get the param `sign` from the report page!"))?
         .as_str().to_string();
       #[allow(non_snake_case)]
       let timeStamp = res.get(2)
-        .ok_or(anyhow!("Failed to get the param `timeStamp` from the report page!"))?
+        .ok_or_else(|| anyhow!("Failed to get the param `timeStamp` from the report page!"))?
         .as_str().to_string();
 
       Ok((already, Params { sign, timeStamp }))

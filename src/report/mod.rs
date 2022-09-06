@@ -42,7 +42,7 @@ pub async fn report(
       .header("Referer", "https://yqtb.nwpu.edu.cn/wx/ry/jrsb_xs.jsp")
       .send().await?
   };
-  let res = resp.text().await?.replace("－", "-"); // 😅
+  let res = resp.text().await?.replace('－', "-"); // 😅
   let res: Value = serde_json::from_str(&res)?;
 
   if let Some(code) = res["state"].as_str() {
