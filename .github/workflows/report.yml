@@ -24,12 +24,9 @@ jobs:
 
       - name: Modify Config File
         run: |
-          sed 's/1145141919/2021302926/' other.example.toml > config.toml
+          sed 's/1145141919/2021302926/' at_school.example.toml > config.toml
           sed -i 's/998244353/${{ secrets.PASSWORD }}/' config.toml
           sed -i 's/田所/张逸飞/' config.toml
-          sed -i 's/13888888888/13972753103/' config.toml
-          sed -i 's/下北泽/湖北省黄冈市蕲春县/' config.toml
-          sed -i 's/610116/421126/' config.toml
 
       - name: Report
         run: ./target/release/syq -r
