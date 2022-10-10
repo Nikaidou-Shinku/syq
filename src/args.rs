@@ -15,4 +15,8 @@ pub struct Args {
   /// Keep reporting until successful
   #[clap(short, long)]
   pub repeat: bool,
+
+  /// TGC (temporary)
+  #[clap(long)]
+  pub tgc: Option<String>,
 }
