@@ -2,7 +2,7 @@ name: Daily Report
 
 on:
   schedule:
-    - cron: "45 12 * * *"
+    - cron: "0 23 * * *"
   workflow_dispatch:
 
 jobs:
@@ -25,8 +25,7 @@ jobs:
       - name: Modify Config File
         run: |
           sed 's/1145141919/2021302926/' at_school.example.toml > config.toml
-          sed -i 's/998244353/${{ secrets.PASSWORD }}/' config.toml
           sed -i 's/田所/张逸飞/' config.toml
 
       - name: Report
-        run: ./target/release/syq -r
+        run: ./target/release/syq -r --tgc ${{ secrets.TGC }}
